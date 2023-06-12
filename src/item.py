@@ -8,7 +8,6 @@ class Item(ABC):
     """
     pay_rate = 1.0
     all = []
-    PATH = "../src/items.csv"
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -42,11 +41,11 @@ class Item(ABC):
             print("Длина наименования товара превышает 10 символов.")
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv_
         """
-        with open(f'{cls.PATH}', encoding='cp1251') as file:
+        with open(f'{path}', encoding='cp1251') as file:
             file = csv.DictReader(file, delimiter=",")
 
             for row in file:
@@ -62,7 +61,7 @@ class Item(ABC):
         """
         string = string.split(".")
 
-        if len(string) > 1 and int(string[1]) > 5 * 10 ^ (len(string[1]) - 1):
+        if len(string) > 1 and int(string[1]) > 5 * (10 ** (len(string[1]) - 1)):
             return int(string[0]) + 1
         else:
             return int(string[0])
